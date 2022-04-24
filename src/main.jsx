@@ -28,7 +28,7 @@ ReactDOM.render(
 					<Route
 						path="/statistics"
 						element={
-							<App cartHidden={false}>
+							<App>
 								<Statistics />
 							</App>
 						}
