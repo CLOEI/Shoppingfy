@@ -1,5 +1,5 @@
 import { HStack } from '@chakra-ui/react';
-import Cart from './components/Cart';
+import Cart from './components/cart';
 
 import Navbar from './components/Navbar';
 

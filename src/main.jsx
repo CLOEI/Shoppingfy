@@ -8,7 +8,8 @@ import theme from '../theme';
 import '@fontsource/quicksand/500.css';
 import '@fontsource/quicksand/700.css';
 
-import Items from './components/Items';
+import Statistics from './components/statistics';
+import Items from './components/items';
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -24,6 +25,14 @@ ReactDOM.render(
 						}
 					/>
 					<Route path="/cart" element={<App cartHidden={false} />} />
+					<Route
+						path="/statistics"
+						element={
+							<App cartHidden={false}>
+								<Statistics />
+							</App>
+						}
+					/>
 				</Routes>
 			</Router>
 		</ChakraProvider>

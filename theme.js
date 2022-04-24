@@ -1,5 +1,6 @@
 import { extendTheme } from '@chakra-ui/react';
 
+// i'm bad at naming :'(
 const colors = {
 	brand: {
 		'bg-0': '#FAFAFE',
@@ -7,6 +8,7 @@ const colors = {
 		purple: '#80485B',
 		orange: '#F9A109',
 		blue: '#56CCF2',
+		gray: '#828282',
 		secondary: '#C1C1C4',
 	},
 };

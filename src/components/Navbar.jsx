@@ -11,6 +11,7 @@ import LogoIcon from './SVG/LogoIcon';
 function Navbar() {
 	const navigate = useNavigate();
 
+	const toStatistics = () => navigate('/statistics');
 	const toCart = () => navigate('/cart');
 	const toItems = () => navigate('/');
 
@@ -28,8 +29,8 @@ function Navbar() {
 			<LogoIcon />
 			<VStack spacing={10}>
 				<Tooltip hasArrow label="items" placement="right">
-					<IconButton aria-label="items" variant="ghost">
-						<MdFormatListBulleted size={25} onClick={toItems} />
+					<IconButton aria-label="items" variant="ghost" onClick={toItems}>
+						<MdFormatListBulleted size={25} />
 					</IconButton>
 				</Tooltip>
 				<Tooltip hasArrow label="history" placement="right">
@@ -38,7 +39,7 @@ function Navbar() {
 					</IconButton>
 				</Tooltip>
 				<Tooltip hasArrow label="statistics" placement="right">
-					<IconButton aria-label="statistics" variant="ghost">
+					<IconButton aria-label="statistics" variant="ghost" onClick={toStatistics}>
 						<MdInsertChartOutlined size={25} />
 					</IconButton>
 				</Tooltip>
