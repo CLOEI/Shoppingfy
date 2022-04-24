@@ -9,6 +9,7 @@ import '@fontsource/quicksand/500.css';
 import '@fontsource/quicksand/700.css';
 
 import Statistics from './components/statistics';
+import History from './components/history';
 import Items from './components/items';
 
 ReactDOM.render(
@@ -30,6 +31,14 @@ ReactDOM.render(
 						element={
 							<App>
 								<Statistics />
+							</App>
+						}
+					/>
+					<Route
+						path="/history"
+						element={
+							<App>
+								<History />
 							</App>
 						}
 					/>

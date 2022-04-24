@@ -9,6 +9,7 @@ const colors = {
 		orange: '#F9A109',
 		blue: '#56CCF2',
 		gray: '#828282',
+		lightGray: '#E0E0E0',
 		secondary: '#C1C1C4',
 	},
 };

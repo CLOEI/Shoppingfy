@@ -12,6 +12,7 @@ function Navbar() {
 	const navigate = useNavigate();
 
 	const toStatistics = () => navigate('/statistics');
+	const toHistory = () => navigate('/history');
 	const toCart = () => navigate('/cart');
 	const toItems = () => navigate('/');
 
@@ -34,7 +35,7 @@ function Navbar() {
 					</IconButton>
 				</Tooltip>
 				<Tooltip hasArrow label="history" placement="right">
-					<IconButton aria-label="history" variant="ghost">
+					<IconButton aria-label="history" variant="ghost" onClick={toHistory}>
 						<MdOutlineReplay size={25} />
 					</IconButton>
 				</Tooltip>
