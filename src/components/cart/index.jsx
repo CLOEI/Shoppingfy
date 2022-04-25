@@ -12,6 +12,8 @@ import {
 import BottleIcon from '../SVG/BottleIcon';
 import Item from './Item';
 
+import { useData } from '../../utils/DataProvider';
+
 const tempData = {
 	'Fruit and vegetables': [
 		{
@@ -64,6 +66,8 @@ const tempData = {
 };
 
 function Cart({ hidden }) {
+	const [data, _] = useData();
+
 	return (
 		<VStack
 			bg="brand.bg-1"
@@ -91,12 +95,12 @@ function Cart({ hidden }) {
 				<Heading as="h2" size="lg" my={4}>
 					Shopping list
 				</Heading>
-				{tempData ? (
-					Object.keys(tempData).map((category) => {
+				{Object.keys(data.cart).length > 0 ? (
+					Object.keys(data.cart).map((category) => {
 						return (
 							<Box w="full" pb={4}>
 								<Text color="brand.gray">{category}</Text>
-								{tempData[category].map((item) => {
+								{data.cart[category].map((item) => {
 									return <Item category={category} {...item} />;
 								})}
 							</Box>

@@ -1,6 +1,7 @@
 import { Box, Heading } from '@chakra-ui/react';
 import React from 'react';
 import Item from './Item';
+import { useData } from '../../utils/DataProvider';
 
 const tempData = {
 	'Fruit and vegetables': [
@@ -17,14 +18,14 @@ const tempData = {
 function Items() {
 	return (
 		<Box pl="0.5rem" flexGrow={1}>
-			{Object.keys(tempData).map((key) => {
+			{Object.keys(tempData).map((category) => {
 				return (
 					<>
 						<Heading as="h2" size="sm" my="1rem">
-							{key}
+							{category}
 						</Heading>
-						{tempData[key].map((item) => {
-							return <Item name={item} />;
+						{tempData[category].map((item) => {
+							return <Item name={item} category={category} />;
 						})}
 					</>
 				);

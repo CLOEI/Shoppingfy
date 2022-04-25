@@ -8,6 +8,7 @@ import theme from '../theme';
 import '@fontsource/quicksand/500.css';
 import '@fontsource/quicksand/700.css';
 
+import { DataProvider } from './utils/DataProvider';
 import Statistics from './components/statistics';
 import History from './components/history';
 import Items from './components/items';
@@ -15,35 +16,37 @@ import Items from './components/items';
 ReactDOM.render(
 	<React.StrictMode>
 		<ChakraProvider theme={theme}>
-			<Router>
-				<Routes>
-					<Route
-						path="/"
-						element={
-							<App>
-								<Items />
-							</App>
-						}
-					/>
-					<Route path="/cart" element={<App cartHidden={false} />} />
-					<Route
-						path="/statistics"
-						element={
-							<App>
-								<Statistics />
-							</App>
-						}
-					/>
-					<Route
-						path="/history"
-						element={
-							<App>
-								<History />
-							</App>
-						}
-					/>
-				</Routes>
-			</Router>
+			<DataProvider>
+				<Router>
+					<Routes>
+						<Route
+							path="/"
+							element={
+								<App>
+									<Items />
+								</App>
+							}
+						/>
+						<Route path="/cart" element={<App cartHidden={false} />} />
+						<Route
+							path="/statistics"
+							element={
+								<App>
+									<Statistics />
+								</App>
+							}
+						/>
+						<Route
+							path="/history"
+							element={
+								<App>
+									<History />
+								</App>
+							}
+						/>
+					</Routes>
+				</Router>
+			</DataProvider>
 		</ChakraProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
