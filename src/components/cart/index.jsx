@@ -15,87 +15,30 @@ import Item from './Item';
 
 import { useData } from '../../utils/DataProvider';
 
-const tempData = {
-	'Fruit and vegetables': [
-		{
-			name: 'Avocado',
-			piece: 3,
-		},
-		{
-			name: 'Pre-cooked corn 450g',
-			piece: 1,
-		},
-	],
-	'Meat and Fish': [
-		{
-			name: 'Chicken 1kg',
-			piece: 3,
-		},
-		{
-			name: 'Pork fillets 450g',
-			piece: 1,
-		},
-	],
-	Beverages: [
-		{
-			name: 'Coca-cola',
-			piece: 4,
-		},
-		{
-			name: 'Fanta',
-			piece: 2,
-		},
-		{
-			name: 'Sprite',
-			piece: 1,
-		},
-	],
-	Test: [
-		{
-			name: 'Coca-cola',
-			piece: 4,
-		},
-		{
-			name: 'Fanta',
-			piece: 2,
-		},
-		{
-			name: 'Sprite',
-			piece: 1,
-		},
-	],
-};
-
 function Cart({ hidden }) {
 	const [data, setData] = useData();
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (Object.keys(data.cart).length === 0) {
-			alert('Your cart is empty');
-			return;
+			return alert('Your cart is empty');
 		} else if (e.target.name.value === '') {
-			alert('Please enter the name');
-			return;
+			return alert('Please enter the name');
 		}
 
 		setData((prevData) => {
 			const date = format(new Date(), 'MMMM yyyy');
 			const data = { ...prevData };
+			const newHistory = {
+				name: e.target.name.value,
+				cart: prevData.cart,
+				date: format(new Date(), 'EEE dd.MM.yyyy'),
+			};
+
 			if (data.history.hasOwnProperty(date)) {
-				data.history[date].push({
-					name: e.target.name.value,
-					cart: prevData.cart,
-					date: format(new Date(), 'EEE dd.MM.yyyy'),
-				});
+				data.history[date].push(newHistory);
 			} else {
-				data.history[date] = [
-					{
-						name: e.target.name.value,
-						cart: prevData.cart,
-						date: format(new Date(), 'EEE dd.MM.yyyy'),
-					},
-				];
+				data.history[date] = [newHistory];
 			}
 
 			data.cart = {};
@@ -144,7 +87,9 @@ function Cart({ hidden }) {
 							<Box w="full" pb={4} key={i}>
 								<Text color="brand.gray">{category}</Text>
 								{data.cart[category].map((item, i) => {
-									return <Item key={i} category={category} {...item} />;
+									return (
+										<Item key={i} category={category} setData={setData} {...item} />
+									);
 								})}
 							</Box>
 						);
