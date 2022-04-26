@@ -30,16 +30,16 @@ function History() {
 			<Heading as="h2" size="lg" my={4}>
 				Shopping history
 			</Heading>
-			{Object.keys(tempData).map((monthYear) => {
+			{Object.keys(tempData).map((monthYear, i) => {
 				return (
-					<>
+					<div key={i}>
 						<Heading as="h3" size="xs" fontWeight="medium" my={6}>
 							{monthYear}
 						</Heading>
-						{tempData[monthYear].map((item) => {
-							return <Item name={item.name} />;
+						{tempData[monthYear].map((item, i) => {
+							return <Item name={item.name} key={i} />;
 						})}
-					</>
+					</div>
 				);
 			})}
 		</Box>

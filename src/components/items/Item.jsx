@@ -25,7 +25,7 @@ function Item({ name, category }) {
 				quantity: 1,
 			});
 
-			return { ...prevData, cart: { ...prevData.cart, ...data } };
+			return { ...prevData, cart: { ...data } };
 		});
 	};
 

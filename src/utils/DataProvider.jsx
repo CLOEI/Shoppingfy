@@ -6,7 +6,7 @@ const dataContext = createContext();
 export function DataProvider({ children }) {
 	const data = useLocalStorage('data', {
 		cart: {},
-		history: [],
+		history: {},
 	});
 
 	return <dataContext.Provider value={data}>{children}</dataContext.Provider>;

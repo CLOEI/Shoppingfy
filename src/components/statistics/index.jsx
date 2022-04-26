@@ -95,16 +95,16 @@ function Statistics() {
 				<Heading as="h2" size="lg" my={4}>
 					Top items
 				</Heading>
-				{sortedItemsPercentage.slice(0, 3).map((item) => {
-					return <Item item={item} color="brand.orange" />;
+				{sortedItemsPercentage.slice(0, 3).map((item, i) => {
+					return <Item item={item} color="brand.orange" key={i} />;
 				})}
 			</Box>
 			<Box>
 				<Heading as="h2" size="lg" mt={6} mb={4}>
 					Top Categories
 				</Heading>
-				{sortedCategoryPercentage.map((item) => {
-					return <Item item={item} color="brand.blue" />;
+				{sortedCategoryPercentage.map((item, i) => {
+					return <Item item={item} color="brand.blue" key={i} />;
 				})}
 			</Box>
 		</Box>
