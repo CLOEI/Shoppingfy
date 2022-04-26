@@ -86,9 +86,15 @@ function Cart({ hidden }) {
 						return (
 							<Box w="full" pb={4} key={i}>
 								<Text color="brand.gray">{category}</Text>
-								{data.cart[category].map((item, i) => {
+								{Object.entries(data.cart[category]).map(([key, value], i) => {
 									return (
-										<Item key={i} category={category} setData={setData} {...item} />
+										<Item
+											key={i}
+											category={category}
+											setData={setData}
+											name={key}
+											quantity={value.quantity}
+										/>
 									);
 								})}
 							</Box>
@@ -115,7 +121,13 @@ function Cart({ hidden }) {
 				bottom="0"
 				onSubmit={onSubmit}
 			>
-				<Input variant="outline" placeholder="Enter a name" name="name" min={3} />
+				<Input
+					variant="outline"
+					placeholder="Enter a name"
+					name="name"
+					min={3}
+					autoComplete="off"
+				/>
 				<Button flexShrink={0} type="submit">
 					Save
 				</Button>

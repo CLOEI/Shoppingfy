@@ -9,16 +9,29 @@ function Item({ category, name, quantity, setData }) {
 	const deleteSelf = () => {
 		setData((prevData) => {
 			const data = { ...prevData };
-			const filtered = prevData.cart[category].filter(
-				(item) => item.name !== name
-			);
+			delete data.cart[category][name];
 
-			if (filtered.length === 0) {
-				delete data.cart[category];
-				return { ...data };
-			} else {
-				return { ...data, cart: { ...data.cart, [category]: filtered } };
+			if (Object.keys(data.cart[category]).length === 0) {
+				delete data[category];
 			}
+			return data;
+		});
+	};
+	const decrease = () => {
+		setData((prevData) => {
+			const data = { ...prevData };
+			if (data.cart[category][name].quantity > 1) {
+				data.cart[category][name].quantity -= 1;
+			}
+			return data;
+		});
+	};
+	const increase = () => {
+		setData((prevData) => {
+			const data = { ...prevData };
+			data.cart[category][name].quantity += 1;
+
+			return data;
 		});
 	};
 
@@ -43,7 +56,7 @@ function Item({ category, name, quantity, setData }) {
 					>
 						<CgTrashEmpty size={20} />
 					</IconButton>
-					<Button variant="unstyled" color="orange">
+					<Button variant="unstyled" color="orange" onClick={decrease}>
 						-
 					</Button>
 					<Button
@@ -54,7 +67,7 @@ function Item({ category, name, quantity, setData }) {
 					>
 						{quantity} pcs
 					</Button>
-					<Button variant="unstyled" color="orange">
+					<Button variant="unstyled" color="orange" onClick={increase}>
 						+
 					</Button>
 				</HStack>

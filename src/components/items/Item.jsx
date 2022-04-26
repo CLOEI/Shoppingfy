@@ -5,27 +5,22 @@ import { useData } from '../../utils/DataProvider';
 
 function Item({ name, category }) {
 	const [_, setData] = useData();
-	// Might considerate if this is the best way to do this
+
 	const onClick = () => {
 		setData((prevData) => {
-			const data = { ...prevData.cart };
-			if (data.hasOwnProperty(category)) {
-				for (let i = 0; i < data[category].length; i++) {
-					if (data[category][i].name === name) {
-						data[category][i].quantity += 1;
-						return { ...prevData, cart: { ...data } };
-					}
+			const data = { ...prevData };
+			if (data.cart.hasOwnProperty(category)) {
+				if (data.cart[category].hasOwnProperty(name)) {
+					data.cart[category][name].quantity += 1;
+				} else {
+					data.cart[category][name] = {
+						quantity: 1,
+					};
 				}
 			} else {
-				data[category] = [];
+				data.cart[category] = { [name]: { quantity: 1 } };
 			}
-
-			data[category].push({
-				name,
-				quantity: 1,
-			});
-
-			return { ...prevData, cart: { ...data } };
+			return data;
 		});
 	};
 
