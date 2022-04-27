@@ -4,17 +4,32 @@ import {
 	MdInsertChartOutlined,
 	MdOutlineShoppingCart,
 } from 'react-icons/md';
-import { VStack, IconButton, Tooltip } from '@chakra-ui/react';
+import {
+	VStack,
+	IconButton,
+	Tooltip,
+	Button,
+	Box,
+	Text,
+	Icon,
+} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+
+import { useData } from '../utils/DataProvider';
 import LogoIcon from './SVG/LogoIcon';
 
 function Navbar() {
+	const [data, _] = useData();
 	const navigate = useNavigate();
 
 	const toStatistics = () => navigate('/statistics');
 	const toHistory = () => navigate('/history');
 	const toCart = () => navigate('/cart');
 	const toItems = () => navigate('/');
+
+	const itemInCart = Object.values(data.cart).reduce((acc, curr) => {
+		return acc + Object.keys(curr).length;
+	}, 0);
 
 	return (
 		<VStack
@@ -45,14 +60,30 @@ function Navbar() {
 					</IconButton>
 				</Tooltip>
 			</VStack>
-			<IconButton
+			<Button
 				aria-label="cart"
-				icon={<MdOutlineShoppingCart size={20} />}
 				rounded="full"
 				colorScheme="orange"
 				color="white"
+				pos="relative"
+				p={2}
 				onClick={toCart}
-			/>
+			>
+				<Icon as={MdOutlineShoppingCart} w={5} h={5} zIndex="2" />
+				{itemInCart > 0 && (
+					<Box
+						pos="absolute"
+						top="-5px"
+						right="-10px"
+						bg="red.500"
+						py={1}
+						px={2}
+						rounded="lg"
+					>
+						<Text fontSize="xs">{itemInCart}</Text>
+					</Box>
+				)}
+			</Button>
 		</VStack>
 	);
 }

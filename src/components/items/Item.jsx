@@ -1,4 +1,4 @@
-import { HStack, Text, Icon } from '@chakra-ui/react';
+import { HStack, Text, Icon, Button } from '@chakra-ui/react';
 import { MdAdd } from 'react-icons/md';
 
 import { useData } from '../../utils/DataProvider';
@@ -23,11 +23,11 @@ function Item({ name, category }) {
 	};
 
 	return (
-		<HStack
+		<Button
 			w="8.75rem"
 			display="inline-flex"
 			px={2}
-			py={3}
+			py={6}
 			bg="white"
 			rounded="lg"
 			mr="0.5rem"
@@ -36,9 +36,17 @@ function Item({ name, category }) {
 			justifyContent="space-between"
 			onClick={onClick}
 		>
-			<Text>{name}</Text>
+			<Text
+				fontWeight="normal"
+				fontSize="sm"
+				whiteSpace="normal"
+				textAlign="left"
+				lineHeight="5"
+			>
+				{name}
+			</Text>
 			<Icon as={MdAdd} color="brand.secondary" />
-		</HStack>
+		</Button>
 	);
 }
 

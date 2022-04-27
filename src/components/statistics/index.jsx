@@ -1,4 +1,4 @@
-import { Heading, Box, HStack, Text } from '@chakra-ui/react';
+import { Heading, Box } from '@chakra-ui/react';
 
 import { useData } from '../../utils/DataProvider';
 import Item from './Item';
