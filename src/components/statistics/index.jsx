@@ -48,7 +48,7 @@ function Statistics() {
 		.sort((a, b) => b.percentage - a.percentage);
 
 	return (
-		<Box px="1rem" w="full">
+		<Box px="1rem" flexGrow={1}>
 			<Box>
 				<Heading as="h2" size="lg" my={4}>
 					Top items

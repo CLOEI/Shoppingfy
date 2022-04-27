@@ -9,6 +9,7 @@ import {
 	Heading,
 } from '@chakra-ui/react';
 import format from 'date-fns/format';
+import { useLocation } from 'react-router-dom';
 
 import BottleIcon from '../SVG/BottleIcon';
 import Item from './Item';
@@ -17,6 +18,7 @@ import { useData } from '../../utils/DataProvider';
 
 function Cart({ hidden }) {
 	const [data, setData] = useData();
+	const location = useLocation();
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -52,14 +54,18 @@ function Cart({ hidden }) {
 			bg="brand.bg-1"
 			minH="100vh"
 			display={hidden ? ['none', 'none', 'flex'] : 'flex'}
+			flexGrow={location.pathname === '/cart' && 1}
+			flexShrink={!location.pathname === '/cart' && 0}
+			alignItems="flex-start"
 		>
 			<HStack
 				bg="brand.purple"
 				rounded="lg"
-				mx={4}
+				mx={2}
 				mb={2}
 				mt={4}
 				spacing={4}
+				alignSelf="center"
 				px={[null, null, 4]}
 			>
 				<Box pos="relative" top="-0.8rem">
@@ -70,57 +76,51 @@ function Cart({ hidden }) {
 					<Button>Add item</Button>
 				</VStack>
 			</HStack>
-			<VStack
-				flexGrow={1}
-				pb="5rem"
-				alignItems="flex-start"
-				w="full"
-				px={4}
-				pos="relative"
-			>
-				<Heading as="h2" size="lg" my={4}>
-					Shopping list
-				</Heading>
-				{Object.keys(data.cart).length > 0 ? (
-					Object.keys(data.cart).map((category, i) => {
-						return (
-							<Box w="full" pb={4} key={i}>
-								<Text color="brand.gray">{category}</Text>
-								{Object.entries(data.cart[category]).map(([key, value], i) => {
-									return (
-										<Item
-											key={i}
-											category={category}
-											setData={setData}
-											name={key}
-											quantity={value}
-										/>
-									);
-								})}
-							</Box>
-						);
-					})
-				) : (
-					<Text
-						pos="absolute"
-						top="50%"
-						right="50%"
-						transform="translate(50%, -50%)"
-					>
-						No items
-					</Text>
-				)}
+			<Heading as="h2" size="lg" my={4} px={4}>
+				Shopping list
+			</Heading>
+			<VStack flexGrow={1} alignItems="flex-start" w="full" pos="relative">
+				<Box
+					pos="absolute"
+					top="0"
+					left="0"
+					bottom="0"
+					right="0"
+					px={4}
+					overflow="auto"
+				>
+					{Object.keys(data.cart).length > 0 ? (
+						Object.keys(data.cart).map((category, i) => {
+							return (
+								<Box w="full" pb={4} key={i}>
+									<Text color="brand.gray">{category}</Text>
+									{Object.entries(data.cart[category]).map(([key, value], i) => {
+										return (
+											<Item
+												key={i}
+												category={category}
+												setData={setData}
+												name={key}
+												quantity={value}
+											/>
+										);
+									})}
+								</Box>
+							);
+						})
+					) : (
+						<Text
+							pos="absolute"
+							top="50%"
+							right="50%"
+							transform="translate(50%, -50%)"
+						>
+							No items
+						</Text>
+					)}
+				</Box>
 			</VStack>
-			<HStack
-				as="form"
-				h="5rem"
-				bg="white"
-				px={4}
-				pos="fixed"
-				w="calc(100% - 3.9rem)"
-				bottom="0"
-				onSubmit={onSubmit}
-			>
+			<HStack as="form" h="5rem" bg="white" w="full" px={4} onSubmit={onSubmit}>
 				<Input
 					variant="outline"
 					placeholder="Enter a name"

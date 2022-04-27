@@ -7,7 +7,7 @@ function History() {
 	const [data, _] = useData();
 
 	return (
-		<Box px="1rem" w="full">
+		<Box px="1rem" flexGrow={1}>
 			<Heading as="h2" size="lg" my={4}>
 				Shopping history
 			</Heading>
