@@ -1,4 +1,4 @@
-import { HStack, Text, Icon, Button } from '@chakra-ui/react';
+import { Text, Icon, Button } from '@chakra-ui/react';
 import { MdAdd } from 'react-icons/md';
 
 import { useData } from '../../utils/DataProvider';

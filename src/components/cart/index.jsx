@@ -73,7 +73,7 @@ function Cart({ hidden }) {
 				</Box>
 				<VStack spacing={2} alignItems="flex-start">
 					<Text color="white">Didn't find what you need?</Text>
-					<Button>Add item</Button>
+					<Button disabled>Add item</Button>
 				</VStack>
 			</HStack>
 			<Heading as="h2" size="lg" my={4} px={4}>
