@@ -1,86 +1,44 @@
 import { Heading, Box, HStack, Text } from '@chakra-ui/react';
 
+import { useData } from '../../utils/DataProvider';
 import Item from './Item';
 
-const tempData = {
-	'Fruit and vegetables': [
-		{
-			name: 'Avocado',
-			piece: 3,
-		},
-		{
-			name: 'Pre-cooked corn 450g',
-			piece: 1,
-		},
-	],
-	'Meat and Fish': [
-		{
-			name: 'Chicken 1kg',
-			piece: 3,
-		},
-		{
-			name: 'Pork fillets 450g',
-			piece: 1,
-		},
-	],
-	Beverages: [
-		{
-			name: 'Coca-cola',
-			piece: 4,
-		},
-		{
-			name: 'Fanta',
-			piece: 2,
-		},
-		{
-			name: 'Sprite',
-			piece: 1,
-		},
-	],
-	Test: [
-		{
-			name: 'Coca-cola',
-			piece: 2,
-		},
-		{
-			name: 'Fanta',
-			piece: 2,
-		},
-		{
-			name: 'Sprite',
-			piece: 1,
-		},
-	],
-};
-
 function Statistics() {
-	const totalItem = Object.keys(tempData)
+	const [data, _] = useData();
+
+	const combinedHistory = combineObject(
+		Object.entries(data.history).reduce((acc, [_, value]) => {
+			return acc.concat(value.map((item) => item.cart));
+		}, [])
+	);
+
+	const totalItem = Object.keys(combinedHistory)
 		.map((category) => {
-			return tempData[category].reduce((acc, curr) => {
-				return acc + curr.piece;
+			return Object.values(combinedHistory[category]).reduce((acc, value) => {
+				return acc + value;
 			}, 0);
 		})
 		.reduce((acc, curr) => acc + curr, 0);
 
-	const sortedItemsPercentage = Object.keys(tempData)
+	const sortedItemsPercentage = Object.keys(combinedHistory)
 		.map((category) => {
-			return tempData[category].map((item) => {
+			return Object.entries(combinedHistory[category]).map(([key, value]) => {
 				return {
-					name: item.name,
-					percentage: ((item.piece / totalItem) * 100).toFixed(0),
+					name: key,
+					percentage: ((value / totalItem) * 100).toFixed(0),
 				};
 			});
 		})
 		.flat()
 		.sort((a, b) => b.percentage - a.percentage);
 
-	const sortedCategoryPercentage = Object.keys(tempData)
+	const sortedCategoryPercentage = Object.keys(combinedHistory)
 		.map((category) => {
 			return {
 				name: category,
 				percentage: (
-					(tempData[category].reduce((acc, curr) => {
-						return acc + curr.piece;
+					(Object.values(combinedHistory[category]).reduce((acc, curr) => {
+						return acc + curr;
 					}, 0) /
 						totalItem) *
 					100
@@ -110,5 +68,27 @@ function Statistics() {
 		</Box>
 	);
 }
+
+const combineObject = (arrayOfObject) => {
+	return arrayOfObject.reduce(
+		(acc, curr) => {
+			for (let [key, value] of Object.entries(curr)) {
+				for (let item in value) {
+					if (acc[key].hasOwnProperty(item)) {
+						acc[key][item] += value[item];
+					} else {
+						acc[key][item] = value[item];
+					}
+				}
+			}
+			return acc;
+		},
+		{
+			'Fruit and vegetables': {},
+			'Meat and Fish': {},
+			Beverages: {},
+		}
+	);
+};
 
 export default Statistics;

@@ -20,8 +20,8 @@ function Item({ category, name, quantity, setData }) {
 	const decrease = () => {
 		setData((prevData) => {
 			const data = { ...prevData };
-			if (data.cart[category][name].quantity > 1) {
-				data.cart[category][name].quantity -= 1;
+			if (data.cart[category][name] > 1) {
+				data.cart[category][name] -= 1;
 			}
 			return data;
 		});
@@ -29,7 +29,7 @@ function Item({ category, name, quantity, setData }) {
 	const increase = () => {
 		setData((prevData) => {
 			const data = { ...prevData };
-			data.cart[category][name].quantity += 1;
+			data.cart[category][name] += 1;
 
 			return data;
 		});

@@ -11,14 +11,12 @@ function Item({ name, category }) {
 			const data = { ...prevData };
 			if (data.cart.hasOwnProperty(category)) {
 				if (data.cart[category].hasOwnProperty(name)) {
-					data.cart[category][name].quantity += 1;
+					data.cart[category][name] += 1;
 				} else {
-					data.cart[category][name] = {
-						quantity: 1,
-					};
+					data.cart[category][name] = 1;
 				}
 			} else {
-				data.cart[category] = { [name]: { quantity: 1 } };
+				data.cart[category] = { [name]: 1 };
 			}
 			return data;
 		});

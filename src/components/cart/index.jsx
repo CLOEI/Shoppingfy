@@ -36,7 +36,7 @@ function Cart({ hidden }) {
 			};
 
 			if (data.history.hasOwnProperty(date)) {
-				data.history[date].push(newHistory);
+				data.history[date].unshift(newHistory);
 			} else {
 				data.history[date] = [newHistory];
 			}
@@ -93,7 +93,7 @@ function Cart({ hidden }) {
 											category={category}
 											setData={setData}
 											name={key}
-											quantity={value.quantity}
+											quantity={value}
 										/>
 									);
 								})}
