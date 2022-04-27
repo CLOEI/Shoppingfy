@@ -1,4 +1,4 @@
-export { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import useLocalStorage from './useLocalStorage';
 
 const dataContext = createContext();
